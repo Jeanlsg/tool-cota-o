@@ -33,7 +33,7 @@ const Step3Customize = ({ formData, setFormData, onNext, onBack }) => {
                 <p className="text-slate-500 font-medium">Escolha a cor e visualize como ele ficará.</p>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-8 mb-8 h-[500px] lg:h-[400px]">
+            <div className="grid lg:grid-cols-3 gap-8 mb-8 min-h-[400px]">
 
                 {/* Visualizer Area */}
                 <div className="lg:col-span-2 bg-slate-100 rounded-[2.5rem] relative overflow-hidden flex items-center justify-center shadow-inner border border-slate-200 group">

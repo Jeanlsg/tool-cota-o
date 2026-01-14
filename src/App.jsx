@@ -102,10 +102,7 @@ const App = () => {
       <nav className="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2" onClick={handleReset} style={{ cursor: 'pointer' }}>
-            <div className="bg-indigo-600 p-1.5 rounded-lg shadow-lg">
-              <Ship className="text-white" size={22} />
-            </div>
-            <span className="text-lg font-black text-slate-800 tracking-tight italic">MB<span className="text-indigo-600 font-bold not-italic">CONTAINER</span></span>
+            <img src="/logo.png" alt="MB Container Logo" className="h-12 w-auto object-contain" />
           </div>
 
           <div className="flex gap-2">
@@ -120,7 +117,7 @@ const App = () => {
         </div>
       </nav>
 
-      <main className="flex-1 flex flex-col items-center justify-center p-6 relative overflow-hidden">
+      <main className="flex-1 flex flex-col items-center justify-start p-6 relative overflow-y-auto">
         {/* Background Elements */}
         <div className="absolute top-20 left-10 w-64 h-64 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
         <div className="absolute top-40 right-10 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>

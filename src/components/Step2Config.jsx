@@ -143,6 +143,37 @@ const Step2Config = ({ formData, setFormData, onNext, onBack }) => {
                         ))}
                     </div>
                 </div>
+
+                {/* Quantity Selection */}
+                <div className="lg:col-span-2 bg-white rounded-[2.5rem] p-6 shadow-xl shadow-slate-200/50 border border-slate-100 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 bg-indigo-100 rounded-xl text-indigo-600">
+                            <div className="font-black text-lg">#</div>
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-bold text-slate-800">Quantidade</h3>
+                            <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Quantas unidades?</p>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-4 bg-slate-50 p-2 rounded-2xl border border-slate-200">
+                        <button
+                            onClick={() => setFormData(prev => ({ ...prev, "Quantidade de containers": Math.max(1, (prev["Quantidade de containers"] || 1) - 1) }))}
+                            className="w-10 h-10 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 font-bold text-lg transition-colors"
+                        >
+                            -
+                        </button>
+                        <span className="text-2xl font-black text-slate-800 w-8 text-center">
+                            {formData["Quantidade de containers"] || 1}
+                        </span>
+                        <button
+                            onClick={() => setFormData(prev => ({ ...prev, "Quantidade de containers": (prev["Quantidade de containers"] || 1) + 1 }))}
+                            className="w-10 h-10 bg-indigo-600 rounded-xl shadow-md border border-indigo-500 flex items-center justify-center text-white hover:bg-indigo-700 font-bold text-lg transition-colors"
+                        >
+                            +
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div className="flex gap-4">

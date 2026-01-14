@@ -69,7 +69,7 @@ const Step5Result = ({ result, formData, onReset }) => {
                     </h3>
 
                     <div className="flex flex-wrap justify-center gap-4 text-xs font-bold text-indigo-100 border-t border-white/20 pt-4">
-                        <span className="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full"><Box size={14} /> {formData["Tipo do Container"]}</span>
+                        <span className="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full"><Box size={14} /> {formData["Quantidade de containers"]}x {formData["Tipo do Container"]}</span>
                         <span className="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full"><MapPin size={14} /> {formData.Destino}</span>
                         <span className="flex items-center gap-1 bg-white/10 px-3 py-1 rounded-full"><Truck size={14} /> {result?.["Km de Distância"] || 0}km</span>
                     </div>

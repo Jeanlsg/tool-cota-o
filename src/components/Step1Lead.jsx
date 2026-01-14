@@ -27,14 +27,13 @@ const Step1Lead = ({ formData, setFormData, onNext }) => {
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2 }}
-                    className="w-20 h-20 bg-indigo-600 rounded-3xl mx-auto flex items-center justify-center shadow-xl shadow-indigo-200 mb-6"
+                    className="mx-auto mb-6 flex justify-center"
                 >
-                    <Ship className="text-white w-10 h-10" />
+                    <img src="/logo.png" alt="MB Container Logo" className="h-24 md:h-32 w-auto object-contain drop-shadow-xl" />
                 </motion.div>
 
                 <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-10">
-                    Seja bem-vindo ao <br />
-                    <span className="text-indigo-600">Grupo MB Containers</span>
+                    Seja bem-vindo
                 </h1>
                 <p className="text-xl font-bold text-slate-600">
                     Compre seu container e <span className="text-indigo-600 underline decoration-4 decoration-indigo-200">pague só na entrega</span>.
@@ -81,15 +80,15 @@ const Step1Lead = ({ formData, setFormData, onNext }) => {
                     <button
                         disabled={!isValid}
                         className={`w-full py-5 rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-xl ${isValid
-                                ? 'bg-indigo-600 text-white shadow-indigo-200 hover:shadow-indigo-300'
-                                : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                            ? 'bg-indigo-600 text-white shadow-indigo-200 hover:shadow-indigo-300'
+                            : 'bg-slate-200 text-slate-400 cursor-not-allowed'
                             }`}
                     >
                         CLIQUE AQUI PARA OBTER COTAÇÃO <ArrowRight size={22} strokeWidth={3} />
                     </button>
                 </form>
             </div>
-        </motion.div>
+        </motion.div >
     );
 };
 
