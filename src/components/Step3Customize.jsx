@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ArrowLeft, Palette, Rotate3D } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Palette, Image as ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 import clsx from 'clsx';
 
 const Step3Customize = ({ formData, setFormData, onNext, onBack }) => {
@@ -13,12 +13,45 @@ const Step3Customize = ({ formData, setFormData, onNext, onBack }) => {
         { id: 'blue', hex: '#2563eb', name: 'Azul Real', label: 'Clássico' },
     ];
 
+    // Local Optimized Images
+    const images6m = [
+        "/images/6m/1.jpg",
+        "/images/6m/2.jpg",
+        "/images/6m/3.jpg",
+        "/images/6m/4.jpg",
+        "/images/6m/5.jpg"
+    ];
+
+    const images12m = [
+        "/images/12m/1.jpg",
+        "/images/12m/2.jpg",
+        "/images/12m/3.jpg",
+        "/images/12m/4.jpg",
+        "/images/12m/5.jpg",
+        "/images/12m/6.jpg"
+    ];
+
     const [color, setColor] = useState(formData.cor || colors[0]);
-    const [rotation, setRotation] = useState(0);
+    // Detect which image set to use based on the selection in Step 2
+    const currentImages = formData["Tipo do Container"]?.includes('20') ? images6m : images12m;
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    // Reset index if type changes (though step logic usually prevents this mid-view)
+    useEffect(() => {
+        setCurrentImageIndex(0);
+    }, [formData["Tipo do Container"]]);
 
     const handleColorChange = (c) => {
         setColor(c);
         setFormData(prev => ({ ...prev, cor: c }));
+    };
+
+    const nextImage = () => {
+        setCurrentImageIndex((prev) => (prev + 1) % currentImages.length);
+    };
+
+    const prevImage = () => {
+        setCurrentImageIndex((prev) => (prev - 1 + currentImages.length) % currentImages.length);
     };
 
     return (
@@ -29,98 +62,60 @@ const Step3Customize = ({ formData, setFormData, onNext, onBack }) => {
             className="w-full max-w-4xl mx-auto"
         >
             <div className="text-center mb-6">
-                <h2 className="text-3xl font-black text-slate-800 tracking-tight mb-2">Personalize seu Container</h2>
-                <p className="text-slate-500 font-medium">Escolha a cor e visualize como ele ficará.</p>
+                <h2 className="text-3xl font-black text-slate-800 tracking-tight mb-2">Detalhes e Cores</h2>
+                <p className="text-slate-500 font-medium">Veja fotos reais dos nossos containers e escolha a cor desejada.</p>
             </div>
 
             <div className="grid lg:grid-cols-3 gap-8 mb-8 min-h-[400px]">
 
-                {/* Visualizer Area */}
+                {/* Photo Gallery Area */}
                 <div className="lg:col-span-2 bg-slate-100 rounded-[2.5rem] relative overflow-hidden flex items-center justify-center shadow-inner border border-slate-200 group">
 
                     <div className="absolute top-6 right-6 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2 z-10">
-                        <Rotate3D size={14} /> 360° View
+                        <ImageIcon size={14} /> Fotos Reais ({currentImages.length})
                     </div>
 
-                    {/* Pseudo-3D Container Representation */}
-                    <motion.div
-                        className="relative w-64 h-32 md:w-80 md:h-40 transition-all duration-500 ease-out"
-                        style={{
-                            preserve3d: true,
-                            transform: `perspective(1000px) rotateY(${rotation}deg) rotateX(5deg)`
-                        }}
-                        drag="x"
-                        dragConstraints={{ left: 0, right: 0 }}
-                        onDrag={(event, info) => setRotation(r => r + info.delta.x)}
+                    {/* Navigation Arrows */}
+                    <button
+                        onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-slate-800 shadow-lg z-20 hover:bg-white transition-all opacity-0 group-hover:opacity-100"
                     >
-                        {/* Front Face */}
-                        <div
-                            className="absolute inset-0 border-4 border-black/10 flex flex-col justify-between p-4 shadow-xl transition-colors duration-500"
-                            style={{
-                                backgroundColor: color.hex,
-                                transform: 'translateZ(60px)',
-                                boxShadow: `inset 0 0 40px rgba(0,0,0,0.2)`
-                            }}
-                        >
-                            <div className="text-white/50 font-black text-4xl tracking-tighter mix-blend-overlay">MB</div>
-                            <div className="w-full h-2 bg-black/10 flex gap-4">
-                                <div className="w-1/3 bg-transparent border-r-2 border-black/10"></div>
-                                <div className="w-1/3 bg-transparent border-r-2 border-black/10"></div>
-                            </div>
-                        </div>
+                        <ChevronLeft size={24} />
+                    </button>
 
-                        {/* Back Face */}
-                        <div
-                            className="absolute inset-0 border-4 border-black/10 transition-colors duration-500"
-                            style={{
-                                backgroundColor: color.hex,
-                                transform: 'translateZ(-60px) rotateY(180deg)',
-                                filter: 'brightness(90%)'
-                            }}
+                    <button
+                        onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-slate-800 shadow-lg z-20 hover:bg-white transition-all opacity-0 group-hover:opacity-100"
+                    >
+                        <ChevronRight size={24} />
+                    </button>
+
+                    {/* Image Display */}
+                    <AnimatePresence mode="wait">
+                        <motion.img
+                            key={currentImageIndex}
+                            src={currentImages[currentImageIndex]}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="w-full h-full object-cover"
+                            alt="Container MB"
                         />
+                    </AnimatePresence>
 
-                        {/* Right Face */}
-                        <div
-                            className="absolute inset-y-0 right-0 w-[120px] origin-right border-4 border-black/10 transition-colors duration-500"
-                            style={{
-                                backgroundColor: color.hex,
-                                transform: 'rotateY(-90deg)',
-                                filter: 'brightness(80%)',
-                                backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 12px)'
-                            }}
-                        />
-
-                        {/* Left Face */}
-                        <div
-                            className="absolute inset-y-0 left-0 w-[120px] origin-left border-4 border-black/10 transition-colors duration-500"
-                            style={{
-                                backgroundColor: color.hex,
-                                transform: 'rotateY(90deg)',
-                                filter: 'brightness(80%)',
-                                backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(0,0,0,0.1) 10px, rgba(0,0,0,0.1) 12px)'
-                            }}
-                        />
-
-                        {/* Top Face */}
-                        <div
-                            className="absolute inset-x-0 top-0 h-[120px] origin-top border-4 border-black/10 transition-colors duration-500"
-                            style={{
-                                backgroundColor: color.hex,
-                                transform: 'rotateX(-90deg)',
-                                filter: 'brightness(110%)'
-                            }}
-                        />
-                    </motion.div>
-
-                    <div className="absolute bottom-6 text-slate-400 text-xs font-bold uppercase tracking-widest opacity-50 flex flex-col items-center">
-                        <div className="w-12 h-1 bg-slate-200 rounded-full mb-2 overflow-hidden">
-                            <motion.div
-                                className="h-full bg-indigo-500"
-                                animate={{ x: [-12, 12, -12] }}
-                                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                    {/* Dots Indicator */}
+                    <div className="absolute bottom-6 flex gap-2 z-10">
+                        {currentImages.map((_, idx) => (
+                            <div
+                                key={idx}
+                                onClick={() => setCurrentImageIndex(idx)}
+                                className={clsx(
+                                    "w-2 h-2 rounded-full cursor-pointer transition-all",
+                                    idx === currentImageIndex ? "bg-white w-6" : "bg-white/50"
+                                )}
                             />
-                        </div>
-                        Arraste para girar
+                        ))}
                     </div>
                 </div>
 
@@ -135,6 +130,8 @@ const Step3Customize = ({ formData, setFormData, onNext, onBack }) => {
                             <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Acabamento externo</p>
                         </div>
                     </div>
+
+                    <p className="text-xs text-slate-400 mb-4 px-1">Selecione uma cor de referência para pintura:</p>
 
                     <div className="space-y-3 flex-1 overflow-y-auto pr-2 custom-scrollbar">
                         {colors.map((c) => (

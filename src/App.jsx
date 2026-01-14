@@ -172,9 +172,82 @@ const App = () => {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="py-6 text-center text-slate-400 text-xs font-bold uppercase tracking-widest">
-        © 2024 Grupo MB Containers. Todos os direitos reservados.
+      {/* Footer Details */}
+      <footer className="bg-[#005F33] text-white pt-16 pb-8 mt-auto">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+          {/* Brand Column */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <img src="/logo.png" alt="MB Logo" className="h-16 w-auto brightness-0 invert opacity-90" />
+            </div>
+            <p className="text-green-100/80 text-sm leading-relaxed">
+              Excelência em containers e logística. Soluções completas para você.
+            </p>
+          </div>
+
+          {/* Addresses */}
+          <div>
+            <h4 className="font-bold text-lg mb-4 text-white">Endereços</h4>
+            <ul className="space-y-4 text-sm text-green-100/80">
+              <li>
+                <strong className="block text-white">Brasil:</strong>
+                Av. Pres. Wilson, 151 - José Menino, Santos - SP, 11065-201
+              </li>
+              <li>
+                <strong className="block text-white">Portugal:</strong>
+                R. Tomás da Fonseca, 1600-160 Lisboa, Portugal
+              </li>
+              <li>
+                <strong className="block text-white">Espanha:</strong>
+                Calle de Isabel Colbrand, Fuencarral-El Pardo, 28050, Madrid
+              </li>
+              <li>
+                <strong className="block text-white">Estados Unidos:</strong>
+                175 SW 7th St Suite 1900, Miami, FL 33130
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="font-bold text-lg mb-4 text-white">Contato</h4>
+            <ul className="space-y-3 text-sm text-green-100/80">
+              <li>
+                <span className="block text-xs uppercase opacity-70">Telefone:</span>
+                (13) 98813-3069
+              </li>
+              <li>
+                <span className="block text-xs uppercase opacity-70">E-mail:</span>
+                grupo.mb.negocios@gmail.com
+              </li>
+            </ul>
+          </div>
+
+          {/* Hours */}
+          <div>
+            <h4 className="font-bold text-lg mb-4 text-white">Horário de Atendimento</h4>
+            <ul className="space-y-2 text-sm text-green-100/80">
+              <li className="flex justify-between border-b border-green-800/50 pb-2">
+                <span>Segunda a Sexta</span>
+                <span className="font-bold text-white">08:00 - 18:00</span>
+              </li>
+              <li className="flex justify-between border-b border-green-800/50 pb-2">
+                <span>Sábado</span>
+                <span className="font-bold text-white">08:00 - 12:00</span>
+              </li>
+              <li className="flex justify-between pt-1">
+                <span>Domingo</span>
+                <span className="text-red-300 font-bold">Fechado</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div className="max-w-6xl mx-auto px-6 mt-12 pt-8 border-t border-green-800/50 text-center text-xs font-bold uppercase tracking-widest text-green-100/40">
+          GRUPO MB® 2024. TODOS OS DIREITOS RESERVADOS.
+        </div>
       </footer>
     </div>
   );
