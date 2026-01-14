@@ -59,7 +59,7 @@ const App = () => {
           cep: formData.cep
         },
         personalizacao: {
-          cor: formData.cor.name
+          cor: formData.cor?.name || formData.cor // Handle both object and string (legacy safety)
         }
       };
 

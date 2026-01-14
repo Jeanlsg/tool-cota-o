@@ -18,7 +18,7 @@ const Step3Customize = ({ formData, setFormData, onNext, onBack }) => {
 
     const handleColorChange = (c) => {
         setColor(c);
-        setFormData(prev => ({ ...prev, cor: c.name }));
+        setFormData(prev => ({ ...prev, cor: c }));
     };
 
     return (
